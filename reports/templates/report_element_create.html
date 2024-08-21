@@ -1,0 +1,11 @@
+<form method="post" action="{% url 'report-element-create' %}">
+    {% csrf_token %}
+    {{ form.element_title.as_field_group }}
+    {{ form.sheet_column.as_field_group }}
+    {{ form.large.as_field_group }}
+    {{ form.emphasized.as_field_group }}
+    {{ form.errors }}z
+    <input name="report" type="hidden" _="on load set my @value to @data-report-pk of closest <ul/>">
+    <input name="order" type="hidden" _="on load set my @value to @data-next-element-order of closest <ul/>">
+    <input type="submit">
+</form>

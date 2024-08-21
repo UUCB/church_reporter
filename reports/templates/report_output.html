@@ -1,0 +1,13 @@
+{% load static %}
+<head>
+    <title>Report from Church Reporter</title>
+    <link rel="stylesheet" href="{% static 'report_output.css' %}">
+</head>
+
+{% for report_data_page in report_data %}
+    <div class="page">
+        {% for element in report_data_page %}
+            <p class="{% if element.element_obj.large %}large{% endif %} {% if element.element_obj.emphasized %}emphasized{% endif %}">{% if element.title %}{{ element.title }}: {% endif%}{{ element.data }}</p>
+        {% endfor %}
+    </div>
+{% endfor %}

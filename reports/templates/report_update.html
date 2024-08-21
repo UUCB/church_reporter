@@ -1,0 +1,6 @@
+<h1>Editing {{ object.title }}</h1>
+<form method="post" action="{% url 'report-update' pk=object.pk %}">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit">
+</form>

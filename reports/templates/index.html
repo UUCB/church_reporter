@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load icon %}
+
+{% block body %}
+    <h1>Reports</h1>
+    <ul>
+        {% for report in reports %}
+            <li>
+                <a href="{% url 'report' report.pk %}">{{ report.title }}</a>
+            </li>
+        {% endfor %}
+        <button hx-get="{% url 'report-create' %}" hx-swap="outerHTML">New Report</button>
+    </ul>
+
+    <h1>Filters</h1>
+    <ul>
+        {% for filter in filters %}
+            <li>
+                {{ filter }}
+                <button hx-get="{% url 'filter-update' pk=filter.pk %}" hx-swap="innerHTML" hx-target="closest <li/>">{% icon "edit" %}</button>
+            </li>
+        {% endfor %}
+        <button hx-get="{% url 'filter-create' %}" hx-swap="outerHTML">New Report</button>
+    </ul>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load icon %}
+
+{% block body %}
+    <h1>{{ report.title }}</h1>
+    <button hx-get="{% url 'report-update' report.pk %}" hx-swap="innerHTML" hx-target="closest <main/>">{% icon 'edit' %}</button>
+    <p>{{ report.description }}</p>
+    <h2>Run Report</h2>
+    <form method="post" action="{% url 'run-report' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ run_report_form.sheet_file.as_field_group }}
+        {{ run_report_form.filter.as_field_group }}
+        <input type="hidden" name="report" value="{{ report.pk }}">
+        <input type="submit">
+    </form>
+    <h2>Elements</h2>
+    <ul class="report-element-list" data-report-pk="{{ report.pk }}" data-next-element-order="{{ report.next_element_order }}">
+        {% for element in report.elements.all %}
+            <li>
+                {{ element }}
+                <button hx-get="{% url 'report-element-update' pk=element.pk %}" hx-swap="innerHTML" hx-target="closest <li/>">{% icon 'edit' %}</button>
+            </li>
+        {% endfor %}
+        <button hx-get="{% url 'report-element-create' %}" hx-swap="outerHTML">New Element</button>
+    </ul>
+{% endblock %}
